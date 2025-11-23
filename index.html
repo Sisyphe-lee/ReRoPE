@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Paper ID: 1134 -->
+  <title>SpaceTimePilot: Generative Rendering of Dynamic Scenes Across Space and Time</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <h1>SpaceTimePilot: Generative Rendering of Dynamic Scenes Across Space and Time</h1>
+    <nav>
+      <a href="#heroVideo">Teaser Video</a>
+      <a href="#concept">Concept</a>
+      <a href="#demos">Demos</a>
+      <a href="#ablation">Ablation</a>
+      <a href="#dataset">Cam×Time Dataset</a>
+      <a href="#ar-demos">AR Demos</a>
+    </nav>
+    <p class="tldr">
+      <strong>TLDR:</strong> SpaceTimePilot disentangles space and time in video diffusion model for controllable generative rendering. Given a single input video of a dynamic scene, SpaceTimePilot freely steers both camera viewpoint and temporal motion within the scene, enabling freely exploration across the 4D space–time domain.
+    </p>
+    <div class="hero-media">
+      <video id="heroVideo" autoplay playsinline controls preload="auto">
+        <source src="assets/videos/SpaceTimePilot.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </header>
+
+  <main>
+    <section id="concept" class="section">
+      <h2>High-Level Concept</h2>
+      
+      <div class="concept-minimal">
+        <img src="assets/images/concept-diagram.png" alt="Comparison of camera-control models, 4D multi-view models, and SpaceTimePilot" class="concept-img">
+        <p class="concept-caption">Blue cells denote the input video or input views, while arrows and dots indicate generated continuous videos or sparse frames.</p>
+        
+        <div class="concept-text">
+          <p><strong>Camera-control V2V models</strong> such as ReCamMaster <span class="cite">Bai et al., ICCV 2025</span> and Generative Camera Dolly <span class="cite">Van Hoorick et al., ECCV 2024</span> modify only the camera trajectory while keeping time strictly monotonic.</p>
+          <p><strong>4D multi-view models</strong> such as Cat4D <span class="cite">Wu et al., CVPR 2024</span> and Diffusion4D <span class="cite">Liang et al., NeurIPS 2024</span> synthesize discrete, sparse views conditioned on both space and time, but do not generate continuous temporal sequences.</p>
+          <p><strong class="spacetimpilot-text">SpaceTimePilot</strong> enables free movement along both the camera and time axes with full control over direction and speed, supporting bullet-time, slow motion, reverse playback, and mixed space–time trajectories.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="demos" class="section">
+      <h2>Video Demonstrations</h2>
+      <p class="section-intro">
+        We present four temporal-trajectory examples, each paired with several arbitrary camera trajectories in the scene.
+        <br>
+        Click any video to view it in focus mode.
+      </p>
+      <div class="demo-nav">
+        <a href="#bullet-time">Bullet Time</a>
+        <a href="#reverse-motion">Reverse Motion</a>
+        <a href="#zigzag-motion">Zigzag Motion</a>
+        <a href="#slow-motion">Slow Motion</a>
+      </div>
+      
+      <div class="demo-group" id="bullet-time">
+        <h3>Bullet Time</h3>
+        <div class="video-grid">
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_22_cam_09_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_28_cam_10_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_30_cam_10_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_31_cam_06_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_32_cam_09_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_36_cam_09_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_38_cam_09_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_45_cam_09_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_46_cam_06_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_48_cam_09_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_49_cam_09_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_51_cam_09_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_56_cam_05_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/fixed_10/video_60_cam_07_fixed_10_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-group" id="reverse-motion">
+        <h3>Reverse Motion</h3>
+        <div class="video-grid">
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/reverse/video_10_cam_09_reverse_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/reverse/video_15_cam_07_reverse_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/reverse/video_22_cam_10_reverse_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/reverse/video_27_cam_09_reverse_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/reverse/video_36_cam_03_reverse_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/reverse/video_38_cam_07_reverse_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/reverse/video_41_cam_07_reverse_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/reverse/video_44_cam_07_reverse_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-group" id="zigzag-motion">
+        <h3>Zigzag Motion</h3>
+        <div class="video-grid">
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/bounce_40/video_15_cam_06_bounce_40_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/bounce_40/video_20_cam_06_bounce_40_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/bounce_40/video_22_cam_10_bounce_40_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/bounce_40/video_40_cam_06_bounce_40_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/bounce_40/video_41_cam_06_bounce_40_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/bounce_40/video_50_cam_09_bounce_40_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/bounce_40/video_53_cam_06_bounce_40_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/bounce_40/video_54_cam_10_bounce_40_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/bounce_40/video_57_cam_08_bounce_40_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/bounce_40/video_60_cam_10_bounce_40_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+      </div>
+      </div>
+
+      <div class="demo-group" id="slow-motion">
+        <h3>Slow Motion</h3>
+        <div class="video-grid">
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/start40_repeat_next/video_18_cam_09_start40_repeat_next_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/start40_repeat_next/video_22_cam_10_start40_repeat_next_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/start40_repeat_next/video_28_cam_07_start40_repeat_next_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/start40_repeat_next/video_53_cam_07_start40_repeat_next_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="demos/start40_repeat_next/video_56_cam_08_start40_repeat_next_overlay_stitched.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ablation" class="section">
+      <h2>Ablation Studies</h2>
+      <p>Each video shows a stitched comparison: source video → camera and time trajectory → video sequence results.</p>
+      <p class="ablation-intro">Ablation studies reveal four key findings: <a href="#ablation-temporal-warping">1</a>, <a href="#ablation-1d-conv">2</a>, <a href="#ablation-camxtime">3</a>, <a href="#ablation-freeze-warping">4</a>.</p>
+
+      <div class="demo-group" id="ablation-temporal-warping">
+        <h3>Effective Temporal Warping</h3>
+        <p class="ablation-description"><strong>Temporal warping is an effective way to disentangle space and time.</strong> Temporal-warping training directly leads to strong disentanglement between space and time. In contrast, joint-dataset training—where each dataset contains only a single control signal—fails to separate the two dimensions.</p>
+        <div class="ablation-videos">
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>Baseline — Joint-Dataset Training</th>
+                  <th class="good-result">Baseline — with Temporal Warping</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/baseline_with_temproal/stitched_video_21.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>Baseline — Joint-Dataset Training</th>
+                  <th class="good-result">Baseline — with Temporal Warping</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/baseline_with_temproal/stitched_video_26.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>Baseline — Joint-Dataset Training</th>
+                  <th class="good-result">Baseline — with Temporal Warping</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/baseline_with_temproal/stitched_video_36.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>Baseline — Joint-Dataset Training</th>
+                  <th class="good-result">Baseline — with Temporal Warping</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/baseline_with_temproal/stitched_video_40.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>Baseline — Joint-Dataset Training</th>
+                  <th class="good-result">Baseline — with Temporal Warping</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/baseline_with_temproal/stitched_video_54.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-group" id="ablation-1d-conv">
+        <h3>Time-Embedding Method Ablation</h3>
+        <p class="ablation-description"><strong>1D-Conv is the most effective temporal-embedding compressor.</strong> Among all embedding mechanisms we tested, 1D convolutions outperform both MLPs and uniform resampling. When combined with the proposed CamxTime dataset, they provide significantly more precise and stable temporal control.</p>
+        <div class="ablation-videos">
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>MLP</th>
+                  <th>Uniform Resampling</th>
+                  <th>1D-Conv</th>
+                  <th class="good-result">1D-Conv with CamxTime</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/3-time-compressor/stitched_video_15.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>MLP</th>
+                  <th>Uniform Resampling</th>
+                  <th>1D-Conv</th>
+                  <th class="good-result">1D-Conv with CamxTime</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/3-time-compressor/stitched_video_20.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>MLP</th>
+                  <th>Uniform Resampling</th>
+                  <th>1D-Conv</th>
+                  <th class="good-result">1D-Conv with CamxTime</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/3-time-compressor/stitched_video_26.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>MLP</th>
+                  <th>Uniform Resampling</th>
+                  <th>1D-Conv</th>
+                  <th class="good-result">1D-Conv with CamxTime</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/3-time-compressor/stitched_video_28.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>MLP</th>
+                  <th>Uniform Resampling</th>
+                  <th>1D-Conv</th>
+                  <th class="good-result">1D-Conv with CamxTime</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/3-time-compressor/stitched_video_36.mp4" type="video/mp4">
+            </video>
+      </div>
+        </div>
+      </div>
+
+      <div class="demo-group" id="ablation-camxtime">
+        <h3>Dataset Ablations</h3>
+        <p class="ablation-description"><strong>The CamxTime dataset is essential for high-quality, fine-grained bullet-time control.</strong> While temporal warping enables disentanglement, joint training with the proposed CamxTime dataset yields much sharper and more stable bullet-time results.</p>
+        <div class="ablation-videos">
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>1D-Conv</th>
+                  <th class="good-result">1D-Conv + CamxTime</th>
+                  <th>1D-Conv + Realistic10K and Mannequin Challenge</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/dataset_comparison/stitched_video_06.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>1D-Conv</th>
+                  <th class="good-result">1D-Conv + CamxTime</th>
+                  <th>1D-Conv + Realistic10K and Mannequin Challenge</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/dataset_comparison/stitched_video_28.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>1D-Conv</th>
+                  <th class="good-result">1D-Conv + CamxTime</th>
+                  <th>1D-Conv + Realistic10K and Mannequin Challenge</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/dataset_comparison/stitched_video_31.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>1D-Conv</th>
+                  <th class="good-result">1D-Conv + CamxTime</th>
+                  <th>1D-Conv + Realistic10K and Mannequin Challenge</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/dataset_comparison/stitched_video_38.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>1D-Conv</th>
+                  <th class="good-result">1D-Conv + CamxTime</th>
+                  <th>1D-Conv + Realistic10K and Mannequin Challenge</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/dataset_comparison/stitched_video_40.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-group" id="ablation-freeze-warping">
+        <h3>Freeze Warping Ablations</h3>
+        <p class="ablation-description"><strong>Freeze-warping is crucial for clean and stable bullet-time effects.</strong> Without freeze or motion-to-freeze warping, temporal manipulation tends to drift, especially under bullet-time controls. Adding freeze-warping and jointly training with the CamxTime dataset leads to more precise, consistent, and stable temporal control.</p>
+        <div class="ablation-image">
+          <img src="assets/images/warping-methods-diagram.png" alt="Time warping methods comparison" class="warping-methods-img">
+        </div>
+        <div class="ablation-videos">
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>1D-Conv (with frozen warping)</th>
+                  <th class="good-result">1D-Conv (with frozen warping) + CamxTime Dataset</th>
+                  <th>1D-Conv + CamxTime Dataset</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/config_TW/stitched_video_11.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>1D-Conv (with frozen warping)</th>
+                  <th class="good-result">1D-Conv (with frozen warping) + CamxTime Dataset</th>
+                  <th>1D-Conv + CamxTime Dataset</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/config_TW/stitched_video_15.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>1D-Conv (with frozen warping)</th>
+                  <th class="good-result">1D-Conv (with frozen warping) + CamxTime Dataset</th>
+                  <th>1D-Conv + CamxTime Dataset</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/config_TW/stitched_video_28.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>1D-Conv (with frozen warping)</th>
+                  <th class="good-result">1D-Conv (with frozen warping) + CamxTime Dataset</th>
+                  <th>1D-Conv + CamxTime Dataset</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/config_TW/stitched_video_31.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>1D-Conv (with frozen warping)</th>
+                  <th class="good-result">1D-Conv (with frozen warping) + CamxTime Dataset</th>
+                  <th>1D-Conv + CamxTime Dataset</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/config_TW/stitched_video_52.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="ablation-video-item">
+            <table class="ablation-table">
+              <thead>
+                <tr>
+                  <th>Source Video</th>
+                  <th>Camera and Time Trajectory</th>
+                  <th>1D-Conv (with frozen warping)</th>
+                  <th class="good-result">1D-Conv (with frozen warping) + CamxTime Dataset</th>
+                  <th>1D-Conv + CamxTime Dataset</th>
+                </tr>
+              </thead>
+            </table>
+            <video autoplay loop muted playsinline>
+              <source src="ablation_videos/config_TW/stitched_video_57.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dataset" class="section">
+      <h2>Cam×Time Dataset</h2>
+      <p class="section-intro">
+        To further strengthen disentanglement, we introduce a new dataset that spans the full grid of camera–time combinations along a trajectory. Our synthetic Cam×Time dataset contains 360K videos rendered from 1,000 animations across 100 scenes and three camera paths. Each path provides full-motion sequences for every camera pose, yielding dense multi-view and full-temporal coverage. This rich supervision enables effective disentanglement of spatial and temporal control.
+      </p>
+
+      <div class="dataset-general-example">
+        <h3>General Example</h3>
+        <p>This is how our dataset looks like:</p>
+        <div class="dataset-example-video">
+          <video autoplay loop muted playsinline>
+            <source src="assets/videos/all_8_videos_4x2_grid.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <div class="dataset-comparison">
+        <h3>Full-Grid Rendering</h3>
+        <div class="comparison-container">
+          <div class="comparison-left">
+            <video autoplay loop muted playsinline>
+              <source src="assets/videos/merged_05.mp4" type="video/mp4">
+            </video>
+            <p class="comparison-label">Original Video</p>
+          </div>
+          <div class="comparison-arrow">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 30 L40 30 M35 25 L40 30 L35 35" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="comparison-right">
+            <video autoplay loop muted playsinline preload="metadata">
+              <source src="assets/videos/grid_all_cam.mp4" type="video/mp4">
+            </video>
+            <p class="comparison-label">Full-Grid Rendering</p>
+            <p class="comparison-note">We do this for all of them.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="dataset-examples">
+        <h3>Sampling from CamxTime Dataset </h3>
+        <p>Sampling from full-grid rendering. We can sample freely—time/camera combination from the full grid.</p>
+        <div class="dataset-examples-rows">
+          <div class="dataset-example-row">
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AE01_006_ALL_cameras__Collection_Animation_18_mixamo__Character_Empty18_2__GenCam_arc_up_down_Cam0_UID59469ca7/forward.mp4" type="video/mp4">
+              </video>
+              <p>Forward</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AE01_006_ALL_cameras__Collection_Animation_18_mixamo__Character_Empty18_2__GenCam_arc_up_down_Cam0_UID59469ca7/fixed_10.mp4" type="video/mp4">
+              </video>
+              <p>Fixed at Frame 10</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AE01_006_ALL_cameras__Collection_Animation_18_mixamo__Character_Empty18_2__GenCam_arc_up_down_Cam0_UID59469ca7/reverse.mp4" type="video/mp4">
+              </video>
+              <p>Reverse</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AE01_006_ALL_cameras__Collection_Animation_18_mixamo__Character_Empty18_2__GenCam_arc_up_down_Cam0_UID59469ca7/bounce_40.mp4" type="video/mp4">
+              </video>
+              <p>Zigzag Motion</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AE01_006_ALL_cameras__Collection_Animation_18_mixamo__Character_Empty18_2__GenCam_arc_up_down_Cam0_UID59469ca7/start40_repeat_next.mp4" type="video/mp4">
+              </video>
+              <p>Slow Motion</p>
+            </div>
+          </div>
+          <div class="dataset-example-row">
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AI01_008_ALL_cameras__Collection_Animation_11_mixamo__Character_Empty11_1__GenCam_arc_Cam7_UIDdb56c51a/forward.mp4" type="video/mp4">
+              </video>
+              <p>Forward</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AI01_008_ALL_cameras__Collection_Animation_11_mixamo__Character_Empty11_1__GenCam_arc_Cam7_UIDdb56c51a/fixed_10.mp4" type="video/mp4">
+              </video>
+              <p>Fixed at Frame 10</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AI01_008_ALL_cameras__Collection_Animation_11_mixamo__Character_Empty11_1__GenCam_arc_Cam7_UIDdb56c51a/reverse.mp4" type="video/mp4">
+              </video>
+              <p>Reverse</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AI01_008_ALL_cameras__Collection_Animation_11_mixamo__Character_Empty11_1__GenCam_arc_Cam7_UIDdb56c51a/bounce_40.mp4" type="video/mp4">
+              </video>
+              <p>Zigzag Motion</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AI01_008_ALL_cameras__Collection_Animation_11_mixamo__Character_Empty11_1__GenCam_arc_Cam7_UIDdb56c51a/start40_repeat_next.mp4" type="video/mp4">
+              </video>
+              <p>Slow Motion</p>
+            </div>
+          </div>
+          <div class="dataset-example-row">
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AI11_003_ALL_cameras__Collection_Animation_11_mixamo__Character_Empty11_1__GenCam_arc_up_down_Cam2_UID466f4be0/forward.mp4" type="video/mp4">
+              </video>
+              <p>Forward</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AI11_003_ALL_cameras__Collection_Animation_11_mixamo__Character_Empty11_1__GenCam_arc_up_down_Cam2_UID466f4be0/fixed_10.mp4" type="video/mp4">
+              </video>
+              <p>Fixed at Frame 10</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AI11_003_ALL_cameras__Collection_Animation_11_mixamo__Character_Empty11_1__GenCam_arc_up_down_Cam2_UID466f4be0/reverse.mp4" type="video/mp4">
+              </video>
+              <p>Reverse</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AI11_003_ALL_cameras__Collection_Animation_11_mixamo__Character_Empty11_1__GenCam_arc_up_down_Cam2_UID466f4be0/bounce_40.mp4" type="video/mp4">
+              </video>
+              <p>Zigzag Motion</p>
+            </div>
+            <div class="video-item">
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="SAT_GT_moved_cam/AI11_003_ALL_cameras__Collection_Animation_11_mixamo__Character_Empty11_1__GenCam_arc_up_down_Cam2_UID466f4be0/start40_repeat_next.mp4" type="video/mp4">
+              </video>
+              <p>Slow Motion</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ar-demos" class="section">
+      <h2>AR Demos</h2>
+      <p class="section-intro">
+        We demonstrate the results of proposed autoregressive inference pipeline, which leverages our model's ability to start generation from arbitrary spatial viewpoints and temporal positions. This flexibility enables multi-turn inference while maintaining temporal, camera, and contextual consistency across segments. Here, we showcase a three-turn autoregressive example featuring large camera transitions.
+      </p>
+      
+      <div class="ar-demos-container">
+        <div class="ar-demo-item">
+          <div class="ar-demo-video-pair">
+            <div class="ar-source-video">
+              <p class="ar-frame-label">81 frames</p>
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="assets/videos/ar_demos/video_3.mp4" type="video/mp4">
+              </video>
+              <p class="ar-label">Source Video</p>
+            </div>
+            <div class="ar-demo-video">
+              <p class="ar-frame-label">243 frames</p>
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="assets/videos/ar_demos/video_03_cam_09_triple_angle_slow_motion_stitched_iterations_1-2-3.mp4" type="video/mp4">
+              </video>
+              <p class="ar-label">AR Demonstration</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="ar-demo-item">
+          <div class="ar-demo-video-pair">
+            <div class="ar-source-video">
+              <p class="ar-frame-label">81 frames</p>
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="assets/videos/ar_demos/video_22.mp4" type="video/mp4">
+              </video>
+              <p class="ar-label">Source Video</p>
+            </div>
+            <div class="ar-demo-video">
+              <p class="ar-frame-label">243 frames</p>
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="assets/videos/ar_demos/video_22_cam_05_triple_angle_slow_motion_stitched_iterations_1-2-3.mp4" type="video/mp4">
+              </video>
+              <p class="ar-label">AR Demonstration</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="ar-demo-item">
+          <div class="ar-demo-video-pair">
+            <div class="ar-source-video">
+              <p class="ar-frame-label">81 frames</p>
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="assets/videos/ar_demos/video_27.mp4" type="video/mp4">
+              </video>
+              <p class="ar-label">Source Video</p>
+            </div>
+            <div class="ar-demo-video">
+              <p class="ar-frame-label">243 frames</p>
+              <video autoplay loop muted playsinline preload="metadata">
+                <source src="assets/videos/ar_demos/video_27_cam_09_triple_angle_slow_motion_stitched_iterations_1-2-3.mp4" type="video/mp4">
+              </video>
+              <p class="ar-label">AR Demonstration</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> SpaceTimePilot Team. All rights reserved.</p>
+  </footer>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__content">
+      <button class="modal__close" type="button" data-close>&times;</button>
+      <video id="modalVideo" controls></video>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
