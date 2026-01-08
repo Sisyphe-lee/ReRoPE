@@ -327,6 +327,40 @@ body {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
+.media-note {
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  color: #777;
+  text-align: center;
+}
+
+.placeholder-box {
+  width: 100%;
+  min-height: 240px;
+  border: 2px dashed #d7d7d7;
+  border-radius: 8px;
+  background: #fafafa;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.video-placeholder {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f4f4;
+  color: #666;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
 main {
   max-width: 1400px;
   margin: 0 auto;

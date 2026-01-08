@@ -8,6 +8,10 @@ if (yearEl) {
   const heroVideo = document.getElementById('heroVideo');
   if (!heroVideo) return;
 
+  const hasSource = Boolean(heroVideo.getAttribute('src')) || Array.from(heroVideo.querySelectorAll('source'))
+    .some(source => source.getAttribute('src'));
+  if (!hasSource) return;
+
   // Ensure video is NOT muted and volume is max
   heroVideo.muted = false;
   heroVideo.volume = 1.0;
@@ -43,52 +47,6 @@ if (yearEl) {
   setTimeout(() => {
     playWithSound();
   }, 100);
-  
-  // Toggle BibTeX section
-  window.toggleBibtex = function() {
-    const bibtexSection = document.getElementById('bibtex-section');
-    if (!bibtexSection) return;
-    
-    const isCollapsed = bibtexSection.classList.contains('collapsed');
-    if (isCollapsed) {
-      bibtexSection.classList.remove('collapsed');
-      setTimeout(() => {
-        bibtexSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
-    } else {
-      bibtexSection.classList.add('collapsed');
-    }
-  };
-  
-  // Copy BibTeX function
-  window.copyBibtex = function() {
-    const bibtexContent = document.getElementById('bibtex-content');
-    if (!bibtexContent) return;
-    
-    const text = bibtexContent.textContent || bibtexContent.innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      const btn = document.querySelector('.copy-bibtex-btn');
-      if (btn) {
-        const originalText = btn.textContent;
-        btn.textContent = 'Copied!';
-        btn.style.background = '#059669';
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.style.background = '#2563eb';
-        }, 2000);
-      }
-    }).catch(err => {
-      console.error('Failed to copy:', err);
-      alert('Failed to copy BibTeX. Please select and copy manually.');
-    });
-  };
-  
-  // Prevent default for upcoming links
-  document.querySelectorAll('.bottom-link.upcoming').forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-    });
-  });
 
   // Enable sound on any user interaction
   const enableSoundOnInteraction = () => {
@@ -138,14 +96,16 @@ document.addEventListener('keydown', (e) => {
 
 // Click on grid videos to open in modal
 document.querySelectorAll('.video-item video').forEach(video => {
+  const source = video.querySelector('source');
+  const srcAttr = video.getAttribute('src') || source?.getAttribute('src');
+  if (!srcAttr) return;
+  const resolvedSrc = source?.src || video.currentSrc || srcAttr;
+
   // Force load the video
   video.load();
   
   video.addEventListener('click', function() {
-    const source = this.querySelector('source');
-    if (source) {
-      openModal(source.src);
-    }
+    openModal(resolvedSrc);
   });
   
   // Ensure video plays when loaded
