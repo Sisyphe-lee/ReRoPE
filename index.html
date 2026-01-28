@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ReRoPE: Repurposing RoPE for Relative Camera Control</title>
+  <link rel="icon" type="image/png" href="assets/logo_white.png" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -16,7 +17,7 @@
         <li><a href="#overview">Overview</a></li>
         <li><a href="#toycase">Toy Case Experiment</a></li>
         <li><a href="#methods">Method</a></li>
-        <li><a href="#demos">Demos</a></li>
+        <li><a href="#demos">More Results</a></li>
       </ul>
     </div>
   </nav>
@@ -24,6 +25,7 @@
   <header class="header" id="overview">
     <div class="title-with-logo">
       <div class="title-line-1">
+        <img src="assets/logo_white.png" alt="ReRoPE Logo" style="height: 3.75rem; width: auto; vertical-align: middle; margin-right: 0.5rem;">
         <span class="title-main">ReRoPE</span>
       </div>
       <div class="title-line-2">
@@ -86,34 +88,215 @@
     </section>
 
     <section id="demos" class="section">
-      <h2>Demos</h2>
-      <p class="section-intro">
-        Replace the placeholders below with your demo videos. Add captions if needed.
-      </p>
-      <div class="video-grid">
-        <div class="video-item">
-          <div class="video-placeholder">Demo video 1 (TBD)</div>
-          <p>Caption placeholder</p>
+      <h2>More Results</h2>
+
+      <!-- V2V Section -->
+      <div class="demo-group" id="v2v-demos">
+        <h3>Video-to-Video (V2V)</h3>
+        <div style="display: grid; grid-template-columns: 1fr 2fr; text-align: center; margin-bottom: 0.5rem; font-weight: 600; color: #333;">
+          <span>Input Video</span>
+          <span>Synthesized Video</span>
         </div>
-        <div class="video-item">
-          <div class="video-placeholder">Demo video 2 (TBD)</div>
-          <p>Caption placeholder</p>
+        <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00a0b28deb3c46889dca9c23f5ce7012.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00a0b28deb3c46889dca9c23f5ce7012_cam07.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00a0b28deb3c46889dca9c23f5ce7012_cam05.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
-        <div class="video-item">
-          <div class="video-placeholder">Demo video 3 (TBD)</div>
-          <p>Caption placeholder</p>
+        <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00a587d336a348cdb3e149a49ca282f1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00a587d336a348cdb3e149a49ca282f1_cam07.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00a587d336a348cdb3e149a49ca282f1_cam10.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
-        <div class="video-item">
-          <div class="video-placeholder">Demo video 4 (TBD)</div>
-          <p>Caption placeholder</p>
+        <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00b543a310314893a1f2bac85d1f52e4.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00b543a310314893a1f2bac85d1f52e4_cam08.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00b543a310314893a1f2bac85d1f52e4_cam10.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
-        <div class="video-item">
-          <div class="video-placeholder">Demo video 5 (TBD)</div>
-          <p>Caption placeholder</p>
+        <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00bb468618614ce783adefc4446239b1.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00bb468618614ce783adefc4446239b1_cam02.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00bb468618614ce783adefc4446239b1_cam07.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
-        <div class="video-item">
-          <div class="video-placeholder">Demo video 6 (TBD)</div>
-          <p>Caption placeholder</p>
+        <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00bf8a382c8f4b46b210a4bed2cd0602.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00bf8a382c8f4b46b210a4bed2cd0602_cam08.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00bf8a382c8f4b46b210a4bed2cd0602_cam10.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00bfd68f27bf433e9ddfa16f43042945.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00bfd68f27bf433e9ddfa16f43042945_cam05.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/v2v/00bfd68f27bf433e9ddfa16f43042945_cam06.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- I2V Section -->
+      <div class="demo-group" id="i2v-demos">
+        <h3>Image-to-Video (I2V)</h3>
+        <div style="display: grid; grid-template-columns: 1fr 2fr; text-align: center; margin-bottom: 0.5rem; font-weight: 600; color: #333;">
+          <span>Input Image</span>
+          <span>Synthesized Video</span>
+        </div>
+        <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="video-item">
+            <img src="assets/demos/i2v/7_source.png" alt="Source Image" style="width: 100%; display: block;">
+            <p>Source Image</p>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/i2v/7_cam07.mp4" type="video/mp4">
+            </video>
+            <p>Camera 07</p>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/i2v/7_cam10.mp4" type="video/mp4">
+            </video>
+            <p>Camera 10</p>
+          </div>
+        </div>
+        <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="video-item">
+            <img src="assets/demos/i2v/9_source.png" alt="Source Image" style="width: 100%; display: block;">
+            <p>Source Image</p>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/i2v/9_cam05.mp4" type="video/mp4">
+            </video>
+            <p>Camera 05</p>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/i2v/9_cam09.mp4" type="video/mp4">
+            </video>
+            <p>Camera 09</p>
+          </div>
+        </div>
+        <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="video-item">
+            <img src="assets/demos/i2v/10_source.png" alt="Source Image" style="width: 100%; display: block;">
+            <p>Source Image</p>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/i2v/10_cam05.mp4" type="video/mp4">
+            </video>
+            <p>Camera 05</p>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/i2v/10_cam09.mp4" type="video/mp4">
+            </video>
+            <p>Camera 09</p>
+          </div>
+        </div>
+        <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="video-item">
+            <img src="assets/demos/i2v/b93f5691ba1cc8890d0b0fb5792668d8c8e084e3b3ae1a476fc5e2c1e38b79ae_source.png" alt="Source Image" style="width: 100%; display: block;">
+            <p>Source Image</p>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/i2v/b93f5691ba1cc8890d0b0fb5792668d8c8e084e3b3ae1a476fc5e2c1e38b79ae_cam06.mp4" type="video/mp4">
+            </video>
+            <p>Camera 06</p>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/i2v/b93f5691ba1cc8890d0b0fb5792668d8c8e084e3b3ae1a476fc5e2c1e38b79ae_cam07.mp4" type="video/mp4">
+            </video>
+            <p>Camera 07</p>
+          </div>
+        </div>
+        <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="video-item">
+            <img src="assets/demos/i2v/f20fc26d6d46029dc7dac01435523d4d015b27ef2d53bc415007ee695edc8a17_source.png" alt="Source Image" style="width: 100%; display: block;">
+            <p>Source Image</p>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/i2v/f20fc26d6d46029dc7dac01435523d4d015b27ef2d53bc415007ee695edc8a17_cam02.mp4" type="video/mp4">
+            </video>
+            <p>Camera 02</p>
+          </div>
+          <div class="video-item">
+            <video autoplay loop muted playsinline>
+              <source src="assets/demos/i2v/f20fc26d6d46029dc7dac01435523d4d015b27ef2d53bc415007ee695edc8a17_cam03.mp4" type="video/mp4">
+            </video>
+            <p>Camera 03</p>
+          </div>
         </div>
       </div>
     </section>

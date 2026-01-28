@@ -33,7 +33,7 @@ body {
 }
 
 .nav-container {
-  max-width: 1400px;
+  max-width: 1680px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -95,7 +95,7 @@ body {
   color: #333;
   padding: 3rem 2rem;
   text-align: center;
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
@@ -143,14 +143,14 @@ body {
 }
 
 .title-main {
-  font-size: 2.5rem;
+  font-size: 3.75rem;
   font-weight: 700;
   color: #000;
   line-height: 1.3;
 }
 
 .title-subtitle {
-  font-size: 1.8rem;
+  font-size: 2.7rem;
   font-weight: 700;
   color: #000;
   line-height: 1.3;
@@ -292,7 +292,7 @@ body {
 
 /* Abstract / TLDR */
 .tldr {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 2rem auto;
   padding: 1.5rem 2rem;
   font-size: 1.1rem;
@@ -314,7 +314,7 @@ body {
 
 /* Hero Media */
 .hero-media {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 2rem auto 0;
 }
 
@@ -364,7 +364,7 @@ body {
    Main Content Structure
    ========================================= */
 main {
-  max-width: 1400px;
+  max-width: 1680px;
   margin: 0 auto;
   padding: 3rem 2rem;
 }
@@ -416,7 +416,7 @@ main {
   line-height: 1.7;
   color: #444;
   margin-bottom: 1.5rem;
-  max-width: 900px;
+  max-width: 1080px;
   margin-left: auto;   /* Keep block centered */
   margin-right: auto;  /* Keep block centered */
   text-align: center;  /* Keep text inside centered */
@@ -523,7 +523,7 @@ main {
 
 /* Images & Concept */
 .concept-minimal {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -535,7 +535,7 @@ main {
 }
 
 .methods-image {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 2rem auto;
   text-align: center;
 }
