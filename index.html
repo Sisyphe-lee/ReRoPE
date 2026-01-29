@@ -56,9 +56,15 @@
     </div>
 
     <div class="hero-media" id="teaser">
-      <video id="heroVideo" playsinline controls preload="metadata">
-        <source src="assets/tesaser_video/teaser_video.mp4" type="video/mp4">
-      </video>
+      <div class="youtube-embed-container">
+        <iframe
+          src="https://www.youtube.com/embed/u6IlUJUObvU?autoplay=1&mute=1"
+          title="ReRoPE Teaser Video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
     </div>
 
     <p class="tldr">
@@ -73,7 +79,9 @@
         Our spectral analysis reveals that RoPE's low-frequency components are redundant, exhibiting minimal phase shift across temporal indices (left). This insight is confirmed by empirical masking experiments showing that generation quality is preserved even when these low-frequency bands are replaced with identity mappings, whereas masking high frequencies leads to model collapse (right).
       </p>
       <div class="methods-image">
-        <img src="assets/high_level_insight/toycase_combined.png" alt="Toy Case Experiment" class="methods-img">
+        <video autoplay loop muted playsinline class="methods-img">
+          <source src="assets/high_level_insight/toycase_combined.mp4" type="video/mp4">
+        </video>
       </div>
     </section>
 
@@ -107,13 +115,11 @@
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00a0b28deb3c46889dca9c23f5ce7012_cam07.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/7.png" alt="Pose" class="pose-overlay">
           </div>
           <div class="video-item">
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00a0b28deb3c46889dca9c23f5ce7012_cam05.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/5.png" alt="Pose" class="pose-overlay">
           </div>
         </div>
         <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
@@ -126,13 +132,11 @@
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00a587d336a348cdb3e149a49ca282f1_cam07.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/7.png" alt="Pose" class="pose-overlay">
           </div>
           <div class="video-item">
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00a587d336a348cdb3e149a49ca282f1_cam10.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/10.png" alt="Pose" class="pose-overlay">
           </div>
         </div>
         <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
@@ -145,13 +149,11 @@
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00b543a310314893a1f2bac85d1f52e4_cam08.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/8.png" alt="Pose" class="pose-overlay">
           </div>
           <div class="video-item">
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00b543a310314893a1f2bac85d1f52e4_cam10.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/10.png" alt="Pose" class="pose-overlay">
           </div>
         </div>
         <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
@@ -164,13 +166,11 @@
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00bb468618614ce783adefc4446239b1_cam02.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/2.png" alt="Pose" class="pose-overlay">
           </div>
           <div class="video-item">
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00bb468618614ce783adefc4446239b1_cam07.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/7.png" alt="Pose" class="pose-overlay">
           </div>
         </div>
         <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
@@ -183,13 +183,11 @@
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00bf8a382c8f4b46b210a4bed2cd0602_cam08.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/8.png" alt="Pose" class="pose-overlay">
           </div>
           <div class="video-item">
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00bf8a382c8f4b46b210a4bed2cd0602_cam10.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/10.png" alt="Pose" class="pose-overlay">
           </div>
         </div>
         <div class="video-grid" style="grid-template-columns: repeat(3, 1fr);">
@@ -202,13 +200,11 @@
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00bfd68f27bf433e9ddfa16f43042945_cam05.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/5.png" alt="Pose" class="pose-overlay">
           </div>
           <div class="video-item">
             <video autoplay loop muted playsinline>
               <source src="assets/demos/v2v/00bfd68f27bf433e9ddfa16f43042945_cam06.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/6.png" alt="Pose" class="pose-overlay">
           </div>
         </div>
       </div>
@@ -229,14 +225,12 @@
             <video autoplay loop muted playsinline>
               <source src="assets/demos/i2v/7_cam07.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/7.png" alt="Pose" class="pose-overlay">
             <p>Camera 07</p>
           </div>
           <div class="video-item">
             <video autoplay loop muted playsinline>
               <source src="assets/demos/i2v/7_cam10.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/10.png" alt="Pose" class="pose-overlay">
             <p>Camera 10</p>
           </div>
         </div>
@@ -249,14 +243,12 @@
             <video autoplay loop muted playsinline>
               <source src="assets/demos/i2v/9_cam05.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/5.png" alt="Pose" class="pose-overlay">
             <p>Camera 05</p>
           </div>
           <div class="video-item">
             <video autoplay loop muted playsinline>
               <source src="assets/demos/i2v/9_cam09.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/9.png" alt="Pose" class="pose-overlay">
             <p>Camera 09</p>
           </div>
         </div>
@@ -269,14 +261,12 @@
             <video autoplay loop muted playsinline>
               <source src="assets/demos/i2v/10_cam05.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/5.png" alt="Pose" class="pose-overlay">
             <p>Camera 05</p>
           </div>
           <div class="video-item">
             <video autoplay loop muted playsinline>
               <source src="assets/demos/i2v/10_cam09.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/9.png" alt="Pose" class="pose-overlay">
             <p>Camera 09</p>
           </div>
         </div>
@@ -289,14 +279,12 @@
             <video autoplay loop muted playsinline>
               <source src="assets/demos/i2v/b93f5691ba1cc8890d0b0fb5792668d8c8e084e3b3ae1a476fc5e2c1e38b79ae_cam06.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/6.png" alt="Pose" class="pose-overlay">
             <p>Camera 06</p>
           </div>
           <div class="video-item">
             <video autoplay loop muted playsinline>
               <source src="assets/demos/i2v/b93f5691ba1cc8890d0b0fb5792668d8c8e084e3b3ae1a476fc5e2c1e38b79ae_cam07.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/7.png" alt="Pose" class="pose-overlay">
             <p>Camera 07</p>
           </div>
         </div>
@@ -309,14 +297,12 @@
             <video autoplay loop muted playsinline>
               <source src="assets/demos/i2v/f20fc26d6d46029dc7dac01435523d4d015b27ef2d53bc415007ee695edc8a17_cam02.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/2.png" alt="Pose" class="pose-overlay">
             <p>Camera 02</p>
           </div>
           <div class="video-item">
             <video autoplay loop muted playsinline>
               <source src="assets/demos/i2v/f20fc26d6d46029dc7dac01435523d4d015b27ef2d53bc415007ee695edc8a17_cam03.mp4" type="video/mp4">
             </video>
-            <img src="assets/pose_vis_processed/3.png" alt="Pose" class="pose-overlay">
             <p>Camera 03</p>
           </div>
         </div>
